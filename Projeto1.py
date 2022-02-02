@@ -36,11 +36,12 @@ def MediaDomiciliar_e_Fotovoltaica():
     print("  ")
 
     def MediaFotovoltaica(ValorMedia_UsoDomiciliarMes,TotalPessoas,aux5):
-        EnergiaFotovoltaicaProduz = []
+        EnergiaFotovoltaicaProduz = {}
         EnergiaFotovoltaicaConsume = []
         EnergiaFotovoltaicaArmazena = []
         EnergiaDomiciliareFotovoltaicaDif = []
         Cont_Painel = {}
+        Cont_Baterias = {}
         ValorMedia2 = 0.0
         ValorMedia3 = 0.0
         ValorMedia4 = 0.0
@@ -48,18 +49,39 @@ def MediaDomiciliar_e_Fotovoltaica():
         SomaTotal3 = 0.0
         SomaTotal4 = 0.0
         TotalPaineisSolar = 0
-        
+        TotalBaterias = 0
+
         TotalPaineisSolar = int(input("Digite a Quantidade de Paines Solares que Voce Possui:  "))
         print("  ")
 
-        for i1 in range(1,2):
+        TotalBaterias = int(input("Digite a Quantidade de Baterias que Voce Possui:  "))
+        print("  ")
+
+
+        for i1 in range(1,TotalPaineisSolar + 1):
+            aux2 = 0
             for i in range(1,13):
                 aux2 = float(input("Digite a Quantidade de Energia Fotovoltaica (Killowatts) que voce produz no mes %i (caso nao produza,digite 0 em todos os meses), na placa solar %i:  " %(i,i1)))
                 print("  ")
                 SomaTotal2 += aux2
-                EnergiaFotovoltaicaProduz.insert(i,aux2)
-            Cont_Painel["Painel%s" %i1] = EnergiaFotovoltaicaProduz
-        print(Cont_Painel)    
+                EnergiaFotovoltaicaProduz["Painel%s_Mes%s" %(i1,i)] = aux2
+            Cont_Painel["Producao_Paineis"] = EnergiaFotovoltaicaProduz
+        ValorMedia2 = SomaTotal2/(TotalPaineisSolar*12)
+        print("Media entre os paineis solares:  %f" % ValorMedia2)
+        print("  ")
+        print(Cont_Painel)
+        print("  ")
+        
+        for i2 in range(1,TotalBaterias + 1):
+            aux4 = 0
+            for i in range(1,13):
+                aux4 = float(input("Digite a Quantidade de energia Fotovoltaica (Killowatts) armazenada no mes %i (caso nao armazene,digite 0 em todos os meses), na bateria %i:   " %(i,i2)))
+                print("  ")
+                SomaTotal4 += aux4
+                EnergiaFotovoltaicaArmazena.insert(i,aux4)
+            Cont_Baterias["Armazem_Bateria%s" %i2] = EnergiaFotovoltaicaArmazena
+            EnergiaFotovoltaicaArmazena.clear()
+        print(Cont_Baterias)
 
         for i in range(1,13):
             aux3 = float(input("Digite a Quantidade de energia Fotovoltaica (Killowatts) usada no mes %i (caso nao use,digite 0 em todos os meses): " % i))
@@ -67,13 +89,6 @@ def MediaDomiciliar_e_Fotovoltaica():
             SomaTotal3 += aux3
             EnergiaFotovoltaicaConsume.insert(i,aux3)
         ValorMedia3 = SomaTotal3/len(EnergiaFotovoltaicaConsume)
-
-        for i in range(1,13):
-            aux4 = int(input("Digite a Quantidade de energia Fotovoltaica (Killowatts) armazenada no mes %i (caso nao armazene,digite 0 em todos os meses): " % i))
-            print("  ")
-            SomaTotal4 += aux4
-            EnergiaFotovoltaicaArmazena.insert(i,aux4)
-        ValorMedia4 = SomaTotal4/len(EnergiaFotovoltaicaArmazena)
 
         aux5.extend(EnergiaFotovoltaicaConsume)
 
