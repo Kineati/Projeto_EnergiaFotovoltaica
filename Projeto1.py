@@ -4,7 +4,7 @@ def MediaDomiciliar_e_Fotovoltaica():
     EnergiaDomiciliarUsadaMes = []
     EnergiaDomiciliarPreçoMes = []
     aux5 = []
-    UnidadaFederativa = ''
+    UnidadeFederativa = ''
     Cidade = ''
     País = ''
     ValorMedia_UsoDomiciliarMes = 0.0
@@ -20,7 +20,7 @@ def MediaDomiciliar_e_Fotovoltaica():
     País = input("Digite o Pais que Voce reside:  ")
     print("  ")
 
-    UnidadaFederativa = input("Digite a Região que voce reside:  ")
+    UnidadeFederativa = input("Digite a UF(Unidade Federativa) que voce reside:  ")
     print("  ")
 
     Cidade = input("Digite a Cidade que voce reside:  ")
@@ -55,6 +55,8 @@ def MediaDomiciliar_e_Fotovoltaica():
         Cont_Painel = {}
         Cont_Baterias = {}
         Cont_Anos = {}
+        Carga_Maxima_Bat = {}
+        Max_Bat = {}
         ValorMedia2 = 0.0
         ValorMedia3 = 0.0
         ValorMedia4 = 0.0
@@ -71,6 +73,8 @@ def MediaDomiciliar_e_Fotovoltaica():
         TotalBaterias = int(input("Digite a Quantidade de Baterias que Voce Possui:  "))
         print("  ")
 
+        TotalAnos = int(input("Digite a Quantidade de Anos Consumindo a Energia Fotovoltaica:  "))
+        print("  ")
 
         for i1 in range(1,TotalPaineisSolar + 1):
             aux2 = 0
@@ -91,12 +95,15 @@ def MediaDomiciliar_e_Fotovoltaica():
         
         for i2 in range(1,TotalBaterias + 1):
             aux4 = 0
+            aux6 = float(input("Digite a Carga Maxima que a Bateria %i possui:  " %i2))
+            Carga_Maxima_Bat["Max_Bateria%s" %i2] = aux6
+            Max_Bat["Carga_Max_Baterias"] = Carga_Maxima_Bat
             for i in range(1,13):
                 aux4 = float(input("Digite a Quantidade de energia Fotovoltaica (Killowatts) armazenada no mes %i (caso nao armazene,digite 0 em todos os meses), na bateria %i:   " %(i,i2)))
                 print("  ")
                 SomaTotal4 += aux4
                 EnergiaFotovoltaicaArmazena["Bateria%s_Mes%s" %(i2,i)] = aux4
-            Cont_Baterias["Armazem_Bateria%s" %i2] = EnergiaFotovoltaicaArmazena
+            Cont_Baterias["Armazem_Bateria"] = EnergiaFotovoltaicaArmazena
             ValorMedia4 = SomaTotal4/(TotalBaterias*12)
         
         print("Media entre as baterias:  %f" % ValorMedia4)
@@ -105,10 +112,13 @@ def MediaDomiciliar_e_Fotovoltaica():
         print(Cont_Baterias)
         print("  ")
 
+        print(Carga_Maxima_Bat)
+        print("  ")
+
 
         for i3 in range(1,TotalAnos+1):
             for i in range(1,13):
-                aux3 = float(input("Digite a Quantidade de energia Fotovoltaica (Killowatts) usada no mes %i (caso nao use,digite 0 em todos os meses): " % i))
+                aux3 = float(input("Digite a Quantidade de energia Fotovoltaica (Killowatts) usada no mes %i (caso nao use,digite 0 em todos os meses) no ano %i: " % (i,i3)))
                 print("  ")
                 SomaTotal3 += aux3
                 EnergiaFotovoltaicaConsume["Ano%s_Mes%s" % (i3,i)] = aux3
