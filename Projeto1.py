@@ -51,8 +51,9 @@ def MediaDomiciliar_e_Fotovoltaica():
         EnergiaFotovoltaicaProduz = {}
         EnergiaFotovoltaicaConsume = {}
         EnergiaFotovoltaicaArmazena = {}
-        EnergiaDomiciliareFotovoltaicaDif = []
+        Tamanho_Paineis = {}
         Cont_Painel = {}
+        Cont_Painel2 = {}
         Cont_Baterias = {}
         Cont_Anos = {}
         Carga_Maxima_Bat = {}
@@ -63,9 +64,14 @@ def MediaDomiciliar_e_Fotovoltaica():
         SomaTotal2 = 0.0
         SomaTotal3 = 0.0
         SomaTotal4 = 0.0
+        Largura = 0.0
+        Comprimento = 0.0
+        Area = 0.0
         TotalPaineisSolar = 0
         TotalBaterias = 0
         TotalAnos = 0
+        Inversor = 0
+        CC_CA = ''
 
         TotalPaineisSolar = int(input("Digite a Quantidade de Paines Solares que Voce Possui:  "))
         print("  ")
@@ -75,6 +81,29 @@ def MediaDomiciliar_e_Fotovoltaica():
 
         TotalAnos = int(input("Digite a Quantidade de Anos Consumindo a Energia Fotovoltaica:  "))
         print("  ")
+
+        Inversor = int(input("Digite 1 se voce possui um Inversor, ou 0 se voce não possui:  "))
+
+        if(Inversor == 1):
+            print("Voce póde transformar a Corrente Continua em Corrente Alternada !!!")
+            print("  ")
+            CC_CA = "Corrente Alternada"
+        else:
+            print("Voce póde apenas utilizar Corrente Continua !!!")
+            print("  ")
+            CC_CA = "Corrente Continua"
+
+        for i4 in range(1,TotalPaineisSolar + 1):
+            Largura = float(input("Digite a Largura do Painel Solar %i:  " % i4))
+            Comprimento = float(input("Digite o Comprimento do Painel Solar %i:  " % i4))
+            Area = Largura*Comprimento
+            Tamanho_Paineis["Tamanho_Painel%s" % i4] = Area
+            Cont_Painel2["Area_Dos_Paineis_MetroQuadrado"] = Tamanho_Paineis
+
+        print(Cont_Painel2)
+        print("  ")
+
+
 
         for i1 in range(1,TotalPaineisSolar + 1):
             aux2 = 0
@@ -90,7 +119,7 @@ def MediaDomiciliar_e_Fotovoltaica():
         print("Media entre os paineis solares:  %f" % ValorMedia2)
         print("  ")
 
-        print(Cont_Painel)
+        print(Cont_Painel["Producao_Paineis"]["Painel1_Mes12"])
         print("  ")
         
         for i2 in range(1,TotalBaterias + 1):
